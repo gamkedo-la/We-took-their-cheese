@@ -8,7 +8,7 @@ public class InventoryCtrl : MonoBehaviour {
 	void Start () {
 		
 	}
-	void runToOverWorld() {
+	public void runToOverWorld() {
 		UIRouter.goTo ("OverWorld");
 	}
 	// Update is called once per frame
