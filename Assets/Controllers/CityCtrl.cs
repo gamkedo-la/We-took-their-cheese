@@ -20,6 +20,8 @@ public class CityCtrl : MonoBehaviour {
 		//set shop to city
 		//display shop
 		UIRouter.goTo ("Shop");
+		UIRouter.shop.city = city;
+		Debug.Log ("City selected" + UIRouter.shop.city.name);
 	}
 
 	void OnEnable() {

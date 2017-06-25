@@ -16,10 +16,10 @@ public static class UIRouter {
 			} else {
 				screen.enabled = true;
 				location = name;
-				Debug.Log ("Screen found: " + screen.name);
 				lastNav = Time.frameCount;
 			}
 		}
 	}
+	public static ShopUI shop = null;
 		
 }

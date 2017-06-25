@@ -17,7 +17,6 @@ public static class Game {
 	}
 
 	public static void Load() {
-		bool newSave = false;
 		Debug.Log (Application.persistentDataPath);
 		if (File.Exists (Application.persistentDataPath + "/savedGames.gd")) {
 			Debug.Log ("Save found! loading now ^_^");
@@ -27,7 +26,6 @@ public static class Game {
 			file.Close ();
 		} else {
 			Debug.Log ("Save Not found!");
-			newSave = true;
 			Data = new GameSave ();
 			savedGames.Add (Data);
 		}
