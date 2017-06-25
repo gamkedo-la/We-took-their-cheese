@@ -39,6 +39,7 @@ public static class Game {
 		}
 
 		UIRouter.goTo ("OverWorld");
+		Debug.Log ("Going to overworld from load");
 		//enable all cities
 	}
 }

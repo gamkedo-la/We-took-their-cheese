@@ -11,8 +11,13 @@ public class OverWorldCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (UIRouter.location == "OverWorld" && Input.GetKeyDown(KeyCode.Escape)) {
-			UIRouter.goTo ("Inventory");
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			Debug.Log ("Location: " + UIRouter.location);
+		}
+		if (UIRouter.location == "OverWorld" && Input.GetKeyDown(KeyCode.Q)) {
+			//Input.GetKeyDown (KeyCode.Escape) || 
+				UIRouter.goTo ("Inventory");
+
 		}	
 	}
 }
