@@ -7,6 +7,7 @@ public static class Game {
 
 	public static GameSave Data;
 	public static List<GameSave> savedGames = new List<GameSave>();
+	public static List<Item> AllItems =  new List<Item>();
 
 	public static void Save() {		
 		Debug.Log ("Save has been called");
@@ -30,8 +31,7 @@ public static class Game {
 			savedGames.Add (Data);
 		}
 		//TODO: write stuff for multiple saves
-		Data = savedGames[0];
-		//if save was not selected select first save
+		Data = savedGames[0];//if save was not selected select first save
 
 		CityCtrl[] Cities = Object.FindObjectsOfType<CityCtrl> ();
 		foreach (CityCtrl ctrl in Cities) {
@@ -40,6 +40,5 @@ public static class Game {
 
 		UIRouter.goTo ("OverWorld");
 		Debug.Log ("Going to overworld from load");
-		//enable all cities
 	}
 }

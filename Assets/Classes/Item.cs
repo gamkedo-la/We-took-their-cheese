@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
-public class City {
 
+[System.Serializable]
+public class Item {
 	//list of items
-	public string name = "Unnamed City";
+	public string name = "Unnamed Item";
 	//current location //should location be saved?!
 	//demand
-	public int money = 0;
-	public List<Item> items;
+	public int price = 0;
+	public int count = 0;
 }

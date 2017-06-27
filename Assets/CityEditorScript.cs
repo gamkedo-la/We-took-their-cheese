@@ -12,7 +12,9 @@ public class CityEditorScript : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("Name is now: " + gameObject.name);
-		cityName.text = gameObject.name;
+		if (!Application.isPlaying && cityName.text != name) {
+			Debug.Log ("Name is now: " + name);
+			cityName.text = name;
+		}
 	}
 }
