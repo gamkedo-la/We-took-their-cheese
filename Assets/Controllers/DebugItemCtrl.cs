@@ -20,7 +20,7 @@ public class DebugItemCtrl : MonoBehaviour {
 	}
 
 	void initItem (){
-		Debug.Log ("Registering item: " + name);
+		//Debug.Log ("Registering item: " + name);
 		data = new Item();
 		data.name = name;
 		data.price = price;

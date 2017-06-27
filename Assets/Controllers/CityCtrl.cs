@@ -17,12 +17,16 @@ public class CityCtrl : MonoBehaviour {
 	}
 
 	void displayCity (){
-		Debug.Log ("Display City has been Clicked");
-		//set shop to city
-		//display shop
-		UIRouter.goTo ("Shop");
-		UIRouter.shop.city = city;
-		Debug.Log ("City selected" + UIRouter.shop.city.name);
+		
+		UIRouter.shop.unpopulate();
+
+		UIRouter.shop.city = city;//set shop to city
+		Debug.Log ("City selected " + UIRouter.shop.city.name);
+
+		UIRouter.shop.populate();
+		UIRouter.goTo ("Shop");//display shop
+
+
 	}
 
 	void OnEnable() {
