@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameSave {
 	//list of players
+	public List<Player> players = new List<Player>();
 	//public List<Players> players = new List<Players>()
 	//list of cities
 	public List<City> cities = new List<City>();

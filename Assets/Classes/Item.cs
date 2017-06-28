@@ -10,4 +10,7 @@ public class Item {
 	//demand
 	public int price = 0;
 	public int count = 0;
+	public Item(string itemName){
+		name = itemName;
+	}
 }

@@ -23,7 +23,7 @@ public class CityCtrl : MonoBehaviour {
 		UIRouter.shop.city = city;//set shop to city
 		Debug.Log ("City selected " + UIRouter.shop.city.name);
 
-		UIRouter.shop.populate();
+		UIRouter.shop.populate(Game.Data.players.Find(x => x.name == "Mozzarella"));
 		UIRouter.goTo ("Shop");//display shop
 
 

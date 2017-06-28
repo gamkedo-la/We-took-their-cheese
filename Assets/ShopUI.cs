@@ -10,6 +10,7 @@ public class ShopUI : MonoBehaviour {
 	public Text moneyUI;
 	public Item selectedItem;
 	public Transform cityItemsList;
+	public Transform playerItemsList;
 	public Transform shopItemPrefab;
 
 	Transform itemUI;
@@ -35,6 +36,10 @@ public class ShopUI : MonoBehaviour {
 			//Set Icon
 			//textField = itemUI.Find ("Price");
 			//textField.text = item.name;
+
+			//set player copy
+			itemUI = Instantiate(itemUI, playerItemsList);
+			itemUI.name = item.name;
 		}
 	}
 
@@ -48,29 +53,48 @@ public class ShopUI : MonoBehaviour {
 			if (itemUI.gameObject.activeSelf) {
 				itemUI.gameObject.SetActive (false);
 			}
+
+			itemUI = playerItemsList.Find (item.name);
+			if (itemUI.gameObject.activeSelf) {
+				itemUI.gameObject.SetActive (false);
+			}
 		}
 	}
 
-	public void populate(){
+	public void populate(Player player){
 		Text textField;
 		foreach (Item item in city.items) {
 			itemUI = cityItemsList.Find (item.name);
 			if (item.count < 1) {
-				
-
 				continue;
 			}
 
 			itemUI.gameObject.SetActive (true);
-			textField = itemUI.Find ("Quantity").GetComponent<Text>();;
+			textField = itemUI.Find ("Quantity").GetComponent<Text>();
 			textField.text = item.count.ToString ();; //TODO: Write util to change 1200 to 1.2k 
 
-			textField = itemUI.Find ("Price").GetComponent<Text>();;
+			textField = itemUI.Find ("Price").GetComponent<Text>();
 			textField.text = item.price.ToString ();; //TODO: make price equal to "city markup" + "base price"
 
 			//Set Icon
 			//textField = itemUI.Find ("Price");
 			//textField.text = item.name;
+
+
+		}
+
+
+		foreach (Item item in player.items) {
+			itemUI = playerItemsList.Find (item.name);
+			if (item.count < 1) {
+				continue;
+			}
+			itemUI.gameObject.SetActive (true);
+			textField = itemUI.Find ("Quantity").GetComponent<Text>();;
+			textField.text = item.count.ToString (); //TODO: Write util to change 1200 to 1.2k 
+
+			textField = itemUI.Find ("Price").GetComponent<Text>();;
+			textField.text = item.price.ToString (); //TODO: make price equal to "city sell" + "base price"
 		}
 	}
 

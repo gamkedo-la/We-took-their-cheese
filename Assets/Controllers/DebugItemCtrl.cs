@@ -21,8 +21,7 @@ public class DebugItemCtrl : MonoBehaviour {
 
 	void initItem (){
 		//Debug.Log ("Registering item: " + name);
-		data = new Item();
-		data.name = name;
+		data = new Item(name);
 		data.price = price;
 		Game.AllItems.Add (data);
 	}

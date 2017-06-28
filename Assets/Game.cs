@@ -30,8 +30,21 @@ public static class Game {
 			Data = new GameSave ();
 			savedGames.Add (Data);
 		}
+
 		//TODO: write stuff for multiple saves
 		Data = savedGames[0];//if save was not selected select first save
+
+		if (Data.players == null) {//Fix old saves. 
+			Data.players = new List<Player>();
+		}
+		if(Data.players.Count == 0){
+			Player player1 = new Player("Mozzarella");
+			foreach (Item i in AllItems) {
+				player1.items.Add (new Item(i.name));
+			}
+			player1.items.Find(x => x.name == "Potatoes").count = 20;
+			Data.players.Add(player1);
+		}
 
 		CityCtrl[] Cities = Object.FindObjectsOfType<CityCtrl> ();
 		foreach (CityCtrl ctrl in Cities) {
