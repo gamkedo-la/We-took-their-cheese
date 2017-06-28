@@ -7,7 +7,12 @@ public class ShopUI : MonoBehaviour {
 	
 	Canvas screen;
 	public City city;
+	public Player player;
+	public int amount;
+	public Text amountUI;
+	public Text amountInputFieldUI;
 	public Text moneyUI;
+	public Text playerMoneyUI;
 	public Item selectedItem;
 	public Transform cityItemsList;
 	public Transform playerItemsList;
@@ -20,6 +25,7 @@ public class ShopUI : MonoBehaviour {
 		UIRouter.shop = this;
 		Transform itemUI;
 		Text textField;
+		amountInputFieldUI.text = "0";
 		foreach (Item item in Game.AllItems) { 
 			itemUI = Instantiate (shopItemPrefab, cityItemsList);
 			//Set UI labels
@@ -61,11 +67,13 @@ public class ShopUI : MonoBehaviour {
 		}
 	}
 
-	public void populate(Player player){
+	public void populate(Player selectedPlayer){
 		Text textField;
+		player = selectedPlayer;
 		foreach (Item item in city.items) {
 			itemUI = cityItemsList.Find (item.name);
 			if (item.count < 1) {
+				itemUI.gameObject.SetActive (false);
 				continue;
 			}
 
@@ -75,7 +83,8 @@ public class ShopUI : MonoBehaviour {
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();
 			textField.text = item.price.ToString ();; //TODO: make price equal to "city markup" + "base price"
-
+			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
+			itemCtrl.isCity = true;
 			//Set Icon
 			//textField = itemUI.Find ("Price");
 			//textField.text = item.name;
@@ -87,6 +96,7 @@ public class ShopUI : MonoBehaviour {
 		foreach (Item item in player.items) {
 			itemUI = playerItemsList.Find (item.name);
 			if (item.count < 1) {
+				itemUI.gameObject.SetActive (false);
 				continue;
 			}
 			itemUI.gameObject.SetActive (true);
@@ -95,12 +105,46 @@ public class ShopUI : MonoBehaviour {
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();;
 			textField.text = item.price.ToString (); //TODO: make price equal to "city sell" + "base price"
+
+			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
+			itemCtrl.isCity = false;
 		}
 	}
 
+	//TODO: ENUMS!!
+	public void selectItem(string itemName, bool isCity){
+		if (isCity) {
+			selectedItem = city.items.Find (x => x.name == itemName); //I can feel the judgement. 
+			//set item to buy
+
+		}
+	}
+
+	public void buyItem(){
+		
+		if(player.money > selectedItem.price * amount){
+			player.money -= selectedItem.price * amount;
+			Item playerItem = player.items.Find (x => x.name == selectedItem.name);
+			selectedItem.count -= amount;
+			playerItem.count += amount;
+			//TODO: effect price
+			populate(player);
+		}
+	}
 	void Update () {
 		if (city != null && moneyUI != null) {
 			moneyUI.text = city.money.ToString ();
+			if (selectedItem == null) {
+				amountUI.text = "0";
+			} else {
+				amountUI.text = selectedItem.count.ToString ();
+			}
+			if (amountInputFieldUI.text != "") {
+				amount = int.Parse (amountInputFieldUI.text);
+			}
+		}
+		if (player != null && playerMoneyUI != null) {
+			playerMoneyUI.text = player.money.ToString ();
 		}
 	}
 

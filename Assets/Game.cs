@@ -43,6 +43,7 @@ public static class Game {
 				player1.items.Add (new Item(i.name));
 			}
 			player1.items.Find(x => x.name == "Potatoes").count = 20;
+			player1.money = 9700; //TODO: remove hardcoded starting cash
 			Data.players.Add(player1);
 		}
 
