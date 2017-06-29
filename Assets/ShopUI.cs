@@ -12,13 +12,17 @@ public class ShopUI : MonoBehaviour {
 	public Text amountUI;
 	public Text amountInputFieldUI;
 	public Text moneyUI;
+	public Text transactionPrice;
+	public Text transactionTotal;
 	public Text playerMoneyUI;
+	public Text buyButton;
 	public Item selectedItem;
 	public Transform cityItemsList;
 	public Transform playerItemsList;
 	public Transform shopItemPrefab;
-
+	bool isBuying;
 	Transform itemUI;
+	float slope;
 	// Use this for initialization
 	void Start () {
 		screen = gameObject.GetComponent<Canvas> ();
@@ -82,7 +86,8 @@ public class ShopUI : MonoBehaviour {
 			textField.text = item.count.ToString ();; //TODO: Write util to change 1200 to 1.2k 
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();
-			textField.text = item.price.ToString ();; //TODO: make price equal to "city markup" + "base price"
+			int price = (int)(amount * (amount * slope + item.price + item.price * 0.1));
+			textField.text = price.ToString (); //TODO: make price equal to "city markup" + "base price"
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = true;
 			//Set Icon
@@ -113,22 +118,45 @@ public class ShopUI : MonoBehaviour {
 
 	//TODO: ENUMS!!
 	public void selectItem(string itemName, bool isCity){
+		isBuying = isCity;
 		if (isCity) {
 			selectedItem = city.items.Find (x => x.name == itemName); //I can feel the judgement. 
-			//set item to buy
+			amountInputFieldUI.text = "1";
+			buyButton.text = "Buy";
 
+		} else {
+			selectedItem = player.items.Find (x => x.name == itemName);
+			buyButton.text = "Sell";
 		}
+		slope = -.2f;
 	}
 
 	public void buyItem(){
-		
-		if(player.money > selectedItem.price * amount){
-			player.money -= selectedItem.price * amount;
-			Item playerItem = player.items.Find (x => x.name == selectedItem.name);
-			selectedItem.count -= amount;
-			playerItem.count += amount;
-			//TODO: effect price
-			populate(player);
+		if (isBuying) {
+			if (player.money > selectedItem.price * amount) {
+				int cost = (int)(amount * (amount * slope + selectedItem.price + selectedItem.price * 0.1));//%10 markup
+				player.money -= cost;
+				city.money += cost;
+
+				Item playerItem = player.items.Find (x => x.name == selectedItem.name);
+				selectedItem.count -= amount;
+				playerItem.count += amount;
+				//TODO: effect price
+				populate (player);
+			}
+		} else {
+			if (city.money > selectedItem.price * amount) {				
+				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
+				int cost = (int)(amount * (amount * slope + cityItem.price + selectedItem.price * 0.1));//%10 markup
+				player.money += cost;
+				city.money -= cost;
+
+
+				selectedItem.count -= amount;
+				cityItem.count += amount;
+				//TODO: effect price
+				populate (player);
+			}
 		}
 	}
 	void Update () {
@@ -142,6 +170,9 @@ public class ShopUI : MonoBehaviour {
 			if (amountInputFieldUI.text != "") {
 				amount = int.Parse (amountInputFieldUI.text);
 			}
+			int price = (int)(amount * slope + selectedItem.price + (selectedItem.price * 0.1));
+			transactionPrice.text = price.ToString ();
+			transactionTotal.text = (amount * price).ToString ();
 		}
 		if (player != null && playerMoneyUI != null) {
 			playerMoneyUI.text = player.money.ToString ();
