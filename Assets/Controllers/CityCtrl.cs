@@ -13,7 +13,7 @@ public class CityCtrl : MonoBehaviour {
 	}
 
 	public void addWealth(){
-		city.money += 1;
+		city.money += 1000;
 	}
 
 	void displayCity (){
@@ -37,13 +37,16 @@ public class CityCtrl : MonoBehaviour {
 	void initCity(){
 		city = new City ();
 		city.name = name;
+		//city.items = new List<Item> ();
 		Game.Data.cities.Add (city);
 	}
 
 	public void loadCity(){
-		city = Game.Data.cities.Find(x => x.name == name);
-		if(city == null){
-			initCity();
+		City Savedcity = Game.Data.cities.Find(x => x.name == name);
+		if(Savedcity == null){
+			Game.Data.cities.Add (city);
+		} else {
+			city = Savedcity;
 		}
 	}
 
