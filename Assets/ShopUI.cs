@@ -22,6 +22,7 @@ public class ShopUI : MonoBehaviour {
 	public Transform cityItemsList;
 	public Transform playerItemsList;
 	public Transform shopItemPrefab;
+	public Transform backendItemList;
 
 	bool isBuying;
 	Transform itemUI;
@@ -32,6 +33,8 @@ public class ShopUI : MonoBehaviour {
 		UIRouter.shop = this;
 		Transform itemUI;
 		Text textField;
+		Image icon;
+		Image iconRef;
 		amountInputFieldUI.text = "1";
 
 		foreach (Item item in Game.AllItems) { 
@@ -47,9 +50,11 @@ public class ShopUI : MonoBehaviour {
 			textField = itemUI.Find ("Price").GetComponent<Text>();;
 			textField.text = item.price.ToString ();; //TODO: make price equal to "city markup" + "base price"
 			itemUI.gameObject.SetActive(false);
+
 			//Set Icon
-			//textField = itemUI.Find ("Price");
-			//textField.text = item.name;
+			icon = itemUI.Find ("Image").GetComponent<Image> ();
+			iconRef = backendItemList.Find (item.name).Find ("Icon").GetComponent<Image> ();
+			icon.sprite = iconRef.sprite;
 
 			//set player copy
 			itemUI = Instantiate(itemUI, playerItemsList);
@@ -96,9 +101,7 @@ public class ShopUI : MonoBehaviour {
 			textField.text = price.ToString (); //TODO: make price equal to "city markup" + "base price"
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = true;
-			//Set Icon
-			//textField = itemUI.Find ("Price");
-			//textField.text = item.name;
+
 
 
 		}
