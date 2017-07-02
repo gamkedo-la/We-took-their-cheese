@@ -7,6 +7,7 @@ public class inventoryUI : MonoBehaviour {
 	public Player player;
 	public Transform itemList;
 	public Transform shopItemPrefab;
+	public Text gold;
 	Transform itemUI;
 	bool empty = true;
 	bool fresh = true;
@@ -56,6 +57,12 @@ public class inventoryUI : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
+		if (fresh == false && screen.enabled == false) {
+			fresh = true;
+		}
+		if (screen.enabled == false) {
+			return;
+		}
 		if (empty && Game.Data.players.Count > 0) {
 			empty = false;
 			init ();
@@ -64,8 +71,8 @@ public class inventoryUI : MonoBehaviour {
 			fresh = false;
 			populate ();
 		}
-		if (fresh == false && screen.enabled == false) {
-			fresh = true;
-		}
+
+		gold.text = player.money.ToString ();
+
 	}
 }
