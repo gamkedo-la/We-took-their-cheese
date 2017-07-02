@@ -32,6 +32,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.db
+
+# Adobe Files
+*.idlk
 Assets/Textures/Thumbs.db.meta
 Assets/Textures/Terrain/Thumbs.db.meta
 Assets/Sprites/Thumbs.db.meta
