@@ -144,6 +144,11 @@ public class ShopUI : MonoBehaviour {
 		nameText.text = selectedItem.name;
 		//TODO: toggle selected item ui on
 
+		//Set Icon
+		Image icon = selectedItemUI.Find ("Image").GetComponent<Image> ();
+		Image iconRef = backendItemList.Find (selectedItem.name).Find ("Icon").GetComponent<Image> ();
+		icon.sprite = iconRef.sprite;
+
 	}
 
 	public void buyItem(){
