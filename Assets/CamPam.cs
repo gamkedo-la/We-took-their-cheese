@@ -12,7 +12,7 @@ public class CamPam : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		transform.position += Time.deltaTime * (Input.GetAxis ("Horizontal") * Vector3.right + Input.GetAxis ("Vertical") * Vector3.up) * 200.0f;
+		transform.position += Time.deltaTime * (Input.GetAxis ("Horizontal") * Vector3.right + Input.GetAxis ("Vertical") * Vector3.up) * 400.0f;
 
 	}
 }
