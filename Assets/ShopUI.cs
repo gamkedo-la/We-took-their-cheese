@@ -17,6 +17,7 @@ public class ShopUI : MonoBehaviour {
 	public Text playerMoneyUI;
 	public Text buyButton;
 	public Item selectedItem;
+	public Item priceData;
 	public Transform selectedItemUI;
 	public Text unitPrice;
 	public Transform cityItemsList;
@@ -87,7 +88,11 @@ public class ShopUI : MonoBehaviour {
 		amount = 1;
 		foreach (Item item in city.items) {
 			itemUI = cityItemsList.Find (item.name);
+			if (itemUI == null) {
+				Debug.LogError ("Item not found in city list " + item.name + ". Perhaps spelled wrong in City?");
+			}
 			if (item.count < 1) {
+				Debug.Log (item.name);
 				itemUI.gameObject.SetActive (false);
 				continue;
 			}
@@ -132,14 +137,16 @@ public class ShopUI : MonoBehaviour {
 		isBuying = isCity;
 		if (isCity) {
 			selectedItem = city.items.Find (x => x.name == itemName); //I can feel the judgement. 
-			amountInputFieldUI.text = "1";
+			priceData = selectedItem;
 			buyButton.text = "Buy";
-			slope = .2f;
+
 		} else {
 			selectedItem = player.items.Find (x => x.name == itemName);
+			priceData =  city.items.Find (x => x.name == itemName);
 			buyButton.text = "Sell";
-			slope = -.2f;
 		}
+		amountInputFieldUI.text = "1";
+		slope = priceData.price / (-priceData.maxAmount);
 		Text nameText = selectedItemUI.Find ("Name").GetComponent<Text> ();
 		nameText.text = selectedItem.name;
 		//TODO: toggle selected item ui on

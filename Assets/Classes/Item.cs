@@ -9,6 +9,7 @@ public class Item {
 	//current location //should location be saved?!
 	//demand
 	public int price = 0;
+	public int maxAmount = 0;
 	public int count = 0;
 	public Item(string itemName){
 		name = itemName;
