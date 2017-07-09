@@ -30,7 +30,7 @@ public class ShopUI : MonoBehaviour {
 
 	bool isBuying;
 	Transform itemUI;
-	float slope;
+	float slope = 0f;
 	// Use this for initialization
 	void Start () {
 		screen = gameObject.GetComponent<Canvas> ();
@@ -52,7 +52,11 @@ public class ShopUI : MonoBehaviour {
 			textField.text = shopNumberFormat(item.count);
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();
-			textField.text = shopNumberFormat(item.price);
+
+			int unitPrice = (int)(item.count*slope + item.price);
+			Debug.Log(item.name + "unit price: " + unitPrice +"\n " + item.count +  "*" + slope + " + " + item.price);
+			textField.text = shopNumberFormat(unitPrice); //TODO: make price equal to "city markup" + "base price"
+
 			itemUI.gameObject.SetActive(false);
 
 			//Set Icon
@@ -112,8 +116,10 @@ public class ShopUI : MonoBehaviour {
 			textField.text = shopNumberFormat(item.count);
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();
-			int price = (int)(amount * (amount * slope + item.price + item.price * 0.1));
-			textField.text = price.ToString (); //TODO: make price equal to "city markup" + "base price"
+			float slope1 = (float)item.price / (float)item.maxAmount * -1;
+			int unitPrice = (int)(item.count*slope1 + item.price);
+
+			textField.text = unitPrice.ToString (); //TODO: make price equal to "city markup" + "base price"
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = true;
 
@@ -138,7 +144,6 @@ public class ShopUI : MonoBehaviour {
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = false;
 		}
-		selectedItem = null;
 
 	}
 
@@ -156,7 +161,7 @@ public class ShopUI : MonoBehaviour {
 			buyButton.text = "Sell";
 		}
 		amountInputFieldUI.text = "1";
-		slope = priceData.price / (-priceData.maxAmount);
+		slope = (float)priceData.price / (float)priceData.maxAmount * -1;
 		Text nameText = selectedItemUI.Find ("Name").GetComponent<Text> ();
 		nameText.text = selectedItem.name;
 		//TODO: toggle selected item ui on
@@ -169,9 +174,10 @@ public class ShopUI : MonoBehaviour {
 	}
 
 	public void buyItem(){
+		Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 		if (isBuying) {
 			if (player.money > selectedItem.price * amount) {
-				int cost = (int)(amount * (int)(amount * slope + selectedItem.price + selectedItem.price * 0.1));//%10 markup
+				int cost = (int)(amount * ((cityItem.count - amount) * slope + selectedItem.price));
 				player.money -= cost;
 				city.money += cost;
 
@@ -182,9 +188,8 @@ public class ShopUI : MonoBehaviour {
 				populate (player);
 			}
 		} else {
-			if (city.money > selectedItem.price * amount) {				
-				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
-				int cost = (int)(amount * (int)(amount * slope + cityItem.price));//%10 markup
+			if (city.money > selectedItem.price * amount) {								
+				int cost = (int)(amount * ((cityItem.count + amount) * slope + selectedItem.price));
 				player.money += cost;
 				city.money -= cost;
 
@@ -211,14 +216,27 @@ public class ShopUI : MonoBehaviour {
 			}
 			int price = 0;
 			if (isBuying && selectedItem != null) {
-				price = (int)(amount * slope + selectedItem.price + selectedItem.price * 0.1);
+				
+				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
+				price = (int)((cityItem.count - amount)*slope + selectedItem.price);
+				Debug.Log (selectedItem);
+				Debug.Log(selectedItem.name + "unit price: " + price +"\n " + 
+					selectedItem.count +  "*" + slope + " + " + selectedItem.price + "\n"+
+					"item Price: " + selectedItem.price + "\n" + 
+					"item max amount: " + selectedItem.maxAmount);
 
 			} else if(selectedItem != null){
 				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 				if (cityItem != null) {
-					price = (int)(amount * slope + cityItem.price);
+					price = (int)((cityItem.count + amount)*slope + priceData.price);
+					//price = (int)((cityItem.count + amount) * slope + selectedItem.price);
 					//TODO: handle prices, or no sales when no demand
 				}
+				Debug.Log (selectedItem);
+				Debug.Log(selectedItem.name + "unit price: " + price +"\n " + 
+					selectedItem.count +  "*" + slope + " + " + selectedItem.price + "\n"+
+					"item Price: " + selectedItem.price + "\n" + 
+					"item max amount: " + selectedItem.maxAmount);
 			}
 			transactionPrice.text = price.ToString ();
 			unitPrice.text = price.ToString ();
