@@ -25,6 +25,9 @@ public class ShopUI : MonoBehaviour {
 	public Transform shopItemPrefab;
 	public Transform backendItemList;
 
+	const string CURRENCY_FORMAT_PREFIX = ""; // optional, could be "$"
+	const string CURRENCY_FORMAT_SUFFIX = ""; // optional, could be "g"
+
 	bool isBuying;
 	Transform itemUI;
 	float slope;
@@ -45,16 +48,16 @@ public class ShopUI : MonoBehaviour {
 			textField.text = item.name;
 			itemUI.name = item.name;
 
-			textField = itemUI.Find ("Quantity").GetComponent<Text>();;
-			textField.text = item.count.ToString ();; //TODO: Write util to change 1200 to 1.2k 
+			textField = itemUI.Find ("Quantity").GetComponent<Text>();
+			textField.text = shopNumberFormat(item.count);
 
-			textField = itemUI.Find ("Price").GetComponent<Text>();;
-			textField.text = item.price.ToString ();; //TODO: make price equal to "city markup" + "base price"
+			textField = itemUI.Find ("Price").GetComponent<Text>();
+			textField.text = shopNumberFormat(item.price);
 			itemUI.gameObject.SetActive(false);
 
 			//Set Icon
 			icon = itemUI.Find ("Image").GetComponent<Image> ();
-			iconRef = backendItemList.Find (item.name).Find ("Icon").GetComponent<Image> ();
+			iconRef = backendItemList.Find (item.name).Find ("Icon").GetComponent<Image>();
 			icon.sprite = iconRef.sprite;
 
 			//set player copy
@@ -82,6 +85,13 @@ public class ShopUI : MonoBehaviour {
 		}
 	}
 
+	// changes 1200 to 1.2k
+	public string shopNumberFormat(int count) {
+		if (count >= 1000000) return CURRENCY_FORMAT_PREFIX + (count / 1000000) + "M" + CURRENCY_FORMAT_SUFFIX;
+		else if (count >= 1000) return CURRENCY_FORMAT_PREFIX + (count / 1000) + "k" + CURRENCY_FORMAT_SUFFIX;
+		else return CURRENCY_FORMAT_PREFIX + count.ToString() + CURRENCY_FORMAT_SUFFIX;
+	}
+
 	public void populate(Player selectedPlayer){
 		Text textField;
 		player = selectedPlayer;
@@ -99,7 +109,7 @@ public class ShopUI : MonoBehaviour {
 
 			itemUI.gameObject.SetActive (true);
 			textField = itemUI.Find ("Quantity").GetComponent<Text>();
-			textField.text = item.count.ToString ();; //TODO: Write util to change 1200 to 1.2k 
+			textField.text = shopNumberFormat(item.count);
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();
 			int price = (int)(amount * (amount * slope + item.price + item.price * 0.1));
@@ -120,10 +130,10 @@ public class ShopUI : MonoBehaviour {
 			}
 			itemUI.gameObject.SetActive (true);
 			textField = itemUI.Find ("Quantity").GetComponent<Text>();;
-			textField.text = item.count.ToString (); //TODO: Write util to change 1200 to 1.2k 
+			textField.text = shopNumberFormat(item.count);
 
 			textField = itemUI.Find ("Price").GetComponent<Text>();;
-			textField.text = item.price.ToString (); //TODO: make price equal to "city sell" + "base price"
+			textField.text = shopNumberFormat(item.price);
 
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = false;
