@@ -78,6 +78,9 @@ public class ShopUI : MonoBehaviour {
 	public void unpopulate(){		
 		foreach (Item item in city.items) {
 			itemUI = cityItemsList.Find (item.name);
+			if (itemUI == null) {
+				Debug.LogError ("Could not find: " + item.name);
+			}
 			if (itemUI.gameObject.activeSelf) {
 				itemUI.gameObject.SetActive (false);
 			}
