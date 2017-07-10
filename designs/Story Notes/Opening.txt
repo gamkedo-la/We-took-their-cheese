@@ -1,0 +1,9 @@
+Player meets mouse wizzard who hires player to run trade
+
+Game opens up with a fancy guy dropping his wallet. 
+You have choice to keep wallet or return it. 
+If you return it, he tells you to meet him at his office. He'd like to offer you a job. 
+If you keep it, the game just starts and you skip the tutorial. 
+
+You arrive at the world map and go "Ahgahhh!! what the hell is this?"
+Mouse wizzard reveals himself. "Since you took my wallet, I decided to return the favor." 
