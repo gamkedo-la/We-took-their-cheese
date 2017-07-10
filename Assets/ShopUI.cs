@@ -125,9 +125,6 @@ public class ShopUI : MonoBehaviour {
 			textField.text = unitPrice.ToString (); //TODO: make price equal to "city markup" + "base price"
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = true;
-
-
-
 		}
 
 
@@ -179,10 +176,11 @@ public class ShopUI : MonoBehaviour {
 	public void buyItem(){
 		Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 		if (isBuying) {
-			if (player.money > selectedItem.price * amount) {
-				int cost = (int)(amount * ((cityItem.count - amount) * slope + selectedItem.price));
-				player.money -= cost;
-				city.money += cost;
+			int cost = (int)((cityItem.count - amount) * slope + selectedItem.price);
+			Debug.Log (cost);
+			if (player.money > cost * amount) {				
+				player.money -=  cost * amount;
+				city.money +=  cost * amount;
 
 				Item playerItem = player.items.Find (x => x.name == selectedItem.name);
 				selectedItem.count -= amount;
@@ -191,10 +189,10 @@ public class ShopUI : MonoBehaviour {
 				populate (player);
 			}
 		} else {
-			if (city.money > selectedItem.price * amount) {								
-				int cost = (int)(amount * ((cityItem.count + amount) * slope + selectedItem.price));
-				player.money += cost;
-				city.money -= cost;
+			int cost = (int)((cityItem.count + amount) * slope + priceData.price);
+			if (city.money > cost * amount) {								
+				player.money += cost * amount;
+				city.money -= cost * amount;
 
 
 				selectedItem.count -= amount;
@@ -222,12 +220,6 @@ public class ShopUI : MonoBehaviour {
 				
 				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 				price = (int)((cityItem.count - amount)*slope + selectedItem.price);
-				Debug.Log (selectedItem);
-				Debug.Log(selectedItem.name + "unit price: " + price +"\n " + 
-					selectedItem.count +  "*" + slope + " + " + selectedItem.price + "\n"+
-					"item Price: " + selectedItem.price + "\n" + 
-					"item max amount: " + selectedItem.maxAmount);
-
 			} else if(selectedItem != null){
 				Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 				if (cityItem != null) {
@@ -235,11 +227,6 @@ public class ShopUI : MonoBehaviour {
 					//price = (int)((cityItem.count + amount) * slope + selectedItem.price);
 					//TODO: handle prices, or no sales when no demand
 				}
-				Debug.Log (selectedItem);
-				Debug.Log(selectedItem.name + "unit price: " + price +"\n " + 
-					selectedItem.count +  "*" + slope + " + " + selectedItem.price + "\n"+
-					"item Price: " + selectedItem.price + "\n" + 
-					"item max amount: " + selectedItem.maxAmount);
 			}
 			transactionPrice.text = price.ToString ();
 			unitPrice.text = price.ToString ();
