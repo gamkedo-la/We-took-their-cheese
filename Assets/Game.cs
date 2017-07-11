@@ -7,7 +7,8 @@ public static class Game {
 
 	public static GameSave Data;
 	public static List<GameSave> savedGames = new List<GameSave>();
-	public static List<Item> AllItems =  new List<Item>();
+	public static List<Item> AllItems = new List<Item>();
+	public static List<City> AllCities = new List<City>();
 
 	public static void Save() {		
 		Debug.Log ("Save has been called");
@@ -50,6 +51,7 @@ public static class Game {
 		CityCtrl[] Cities = Object.FindObjectsOfType<CityCtrl> ();
 		foreach (CityCtrl ctrl in Cities) {
 			ctrl.enabled = true;
+			AllCities.Add(ctrl.city);
 		}
 
 		UIRouter.goTo ("OverWorld");
