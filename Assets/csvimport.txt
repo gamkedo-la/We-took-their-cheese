@@ -1,0 +1,21 @@
+TextAsset csvData;
+csvData = Resources.Load ("cityPriceData") as TextAsset;
+string [] csvRows = csvData.text.Split (new char[]{'\r'});
+int expectedValuesPerRow = 5;
+for (int i=1; i < csvRows.Length; i++){ //start i=1 to skip column headers
+    if (csvRows[i].Length < expectedValuesPerRow){
+        Debug.Log ("incomplete or last line found");
+        break; // bail out!
+    }
+    string [] unitCols = csvRows[i].Split (',');
+    Debug.Log (csvRows [i]);   // Shows row of data being loaded
+    // here factCard is just some simple class for containing data
+    // make it up per game, but here it stores 1 string, 2 ints, 1 bool
+    factCard eachCard = new factCard (unitCols[0], // string
+                                      int.Parse(unitCols[1]), // int
+                                      int.Parse(unitCols[2]),
+                                      bool.Parse(unitCols[3]) // bool
+                                      );
+    // factList is just a generic <list> of factCards
+    factList.Add (eachCard);   
+}
