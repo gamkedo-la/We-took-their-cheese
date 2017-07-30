@@ -16,7 +16,7 @@ public class DebugItemCtrl : MonoBehaviour {
 		}
 
 		itemName= gameObject.transform.Find("Name").GetComponent<Text>();
-		itemPrice= gameObject.transform.FindChild("Price/PriceText").GetComponent<Text>();
+		itemPrice= gameObject.transform.Find("Price/PriceText").GetComponent<Text>();
 	}
 
 	void initItem (){
