@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [ExecuteInEditMode]
 public class CityCtrl : MonoBehaviour {
 	// Use this for initialization
 	public City city;
+	public AudioMixerSnapshot inMainWorld;
+	public AudioMixerSnapshot inStore;
+
 	void Start () {
 		Button btn = gameObject.GetComponent<Button> ();
 		btn.onClick.AddListener (displayCity);
@@ -25,7 +32,7 @@ public class CityCtrl : MonoBehaviour {
 
 		UIRouter.shop.populate(Game.Data.players.Find(x => x.name == "Mozzarella"));
 		UIRouter.goTo ("Shop");//display shop
-
+		inStore.TransitionTo(3f);
 
 	}
 
