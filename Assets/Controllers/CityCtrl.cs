@@ -32,7 +32,7 @@ public class CityCtrl : MonoBehaviour {
 
 		UIRouter.shop.populate(Game.Data.players.Find(x => x.name == "Mozzarella"));
 		UIRouter.goTo ("Shop");//display shop
-		inStore.TransitionTo(3f);
+		inStore.TransitionTo(2f);
 
 	}
 

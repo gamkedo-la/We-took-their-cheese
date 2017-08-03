@@ -19,14 +19,14 @@ public class ScreenCtrl : MonoBehaviour {
 
 	public void runToOverWorld(){
 		UIRouter.goTo ("OverWorld");
-		inMainWorld.TransitionTo(1.5f);
+		inMainWorld.TransitionTo(2f);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (canQuickCancel && screen.enabled && Input.GetKeyDown(KeyCode.Q)) {
 			UIRouter.goTo ("OverWorld");
-			inMainWorld.TransitionTo(1.5f);
+			inMainWorld.TransitionTo(2f);
 			return;
 		}
 	}
