@@ -204,6 +204,17 @@ public class ShopUI : MonoBehaviour {
 	}
 	void Update () {
 		if (city != null && moneyUI != null) {
+			if(Input.GetKeyDown(KeyCode.C)) {
+				Item playerItem = player.items.Find (x => x.name == "Cheese");
+				if(playerItem.count < 998) {
+					playerItem.count = 998;
+				} else {
+					playerItem.count++;
+				}
+				Debug.Log("Cheese cheat, cheese now:" + playerItem.count);
+				populate (player);
+			}
+
 			moneyUI.text = city.money.ToString ();
 			if (selectedItem == null) {
 				amountUI.text = "0";
