@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShopUI : MonoBehaviour {
 	
@@ -125,6 +126,13 @@ public class ShopUI : MonoBehaviour {
 			textField.text = unitPrice.ToString (); //TODO: make price equal to "city markup" + "base price"
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = true;
+		}
+
+		Item playerItem = player.items.Find (x => x.name == "Cheese");
+		if(playerItem.count >= 1000) {
+			Debug.Log("YOU RUINED THE ELF ECONOMY. VICTORY! TAKE THAT, ELVES");
+			SceneManager.LoadScene("EndScene");
+			return;
 		}
 
 
