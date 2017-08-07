@@ -212,9 +212,12 @@ public class ShopUI : MonoBehaviour {
 	}
 	void Update () {
 		if (city != null && moneyUI != null) {
-			if(Input.GetKeyDown(KeyCode.C)) {
+			if(Input.GetKeyDown(KeyCode.C)) { //Cheese cheat
 				Item playerItem = player.items.Find (x => x.name == "Cheese");
-				if(playerItem.count < 998) {
+				if (playerItem == null) {
+					Debug.Log ("No cheese found");
+					//player.items.Add(new 
+				} else if(playerItem.count < 998) {
 					playerItem.count = 998;
 				} else {
 					playerItem.count++;
