@@ -34,19 +34,43 @@ public class GameTimer : MonoBehaviour {
 
 				// consume items over time
 				foreach (Item nextItem in nextCity.items) {
-					//Debug.Log("GameTimer next item: " + nextItem.name);
+                    //Debug.Log("GameTimer next item: " + nextItem.name);
 
-					// FIXME: set up a table for what each city consumes/produces
-					// for now, cities just consume or produce randomly +/- 10
-					quantityChange = UnityEngine.Random.Range(consumeRangeMin, consumeRangeMax+1);
-
+                    // FIXME: set up a table for what each city consumes/produces
+                    // for now, cities just consume or produce randomly +/- 10
+                    quantityChange = 0;
+                    //first produce
+                    if (nextItem.prouction > 0)
+                    {
+                        quantityChange = UnityEngine.Random.Range(0, nextItem.prouction);
+                    }
+                    else {
+                        if (UnityEngine.Random.Range(1, 25) == 1) {
+                            quantityChange = 1;
+                            Debug.Log("randomly producing 1 " + nextItem.name);
+                        }
+                    }
 					nextItem.count += quantityChange;
+                    if (quantityChange > 0) { 
+                        Debug.Log(nextCity.name + (quantityChange >= 0 ? " produced " : " consumed ") + quantityChange + " " + nextItem.name + " for a total of " + nextItem.count);
+                    }
+                    //then consume
+                    quantityChange = 0;
+                    quantityChange = nextItem.maxAmount / 10;
+                    if (quantityChange < nextItem.count)
+                    {
+                        nextCity.money += quantityChange * nextItem.price / 5;
+                        nextItem.count -= quantityChange;
+                    }
+                    else {
+                        nextCity.money += (quantityChange + (nextItem.count - quantityChange)) * nextItem.price;
+                    }
+                    Debug.Log(nextCity.name + " consumed " + quantityChange + " " + nextItem.name + " for a total of " + nextItem.count);
 
-					// no negative values (TODO: cap at a maximum quantity?)
-					if (nextItem.count < 0) nextItem.count = 0;
+                    // no negative values (TODO: cap at a maximum quantity?)
+                    if (nextItem.count < 0) nextItem.count = 0;
 
-					Debug.Log(nextCity.name + (quantityChange>=0?" produced ":" consumed ") + quantityChange + " " + nextItem.name + " for a total of " + nextItem.count);
-
+					
 				} // items
 
 			} // cities

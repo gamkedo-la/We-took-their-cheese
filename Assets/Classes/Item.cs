@@ -14,4 +14,5 @@ public class Item {
 	public Item(string itemName){
 		name = itemName;
 	}
+    public int prouction = 0;
 }
