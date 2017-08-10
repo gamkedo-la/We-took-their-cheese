@@ -11,8 +11,19 @@ public class CamPam : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		transform.position += Time.deltaTime * (Input.GetAxis ("Horizontal") * Vector3.right + Input.GetAxis ("Vertical") * Vector3.up) * 400.0f;
+        float minBorderY = -82.3f;
+        float maxBorderY = 2620f;
+        float minBorderX = -670f;
+        float maxBorderX = 2625f;
 
+        Vector3 projectedCamPos = transform.position + Time.deltaTime * (Input.GetAxis("Horizontal") * Vector3.right + Input.GetAxis("Vertical") * Vector3.up) * 400.0f;
+
+        if (projectedCamPos.x > maxBorderX || projectedCamPos.x < minBorderX || projectedCamPos.y > maxBorderY || projectedCamPos.y < minBorderY)
+        {
+
+        } else
+        {
+            transform.position += Time.deltaTime * (Input.GetAxis("Horizontal") * Vector3.right + Input.GetAxis("Vertical") * Vector3.up) * 400.0f;
+        }
 	}
 }
