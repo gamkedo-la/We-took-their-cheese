@@ -159,7 +159,7 @@ public class ShopUI : MonoBehaviour {
 	public void selectItem(string itemName, bool isCity){
 		isBuying = isCity;
 		if (isCity) {
-			selectedItem = city.items.Find (x => x.name == itemName); //I can feel the judgement. 
+			selectedItem = city.items.Find (x => x.name == itemName);
 			priceData = selectedItem;
 			buyButton.text = "Buy";
 
@@ -249,6 +249,9 @@ public class ShopUI : MonoBehaviour {
 					//price = (int)((cityItem.count + amount) * slope + selectedItem.price);
 					//TODO: handle prices, or no sales when no demand
 				}
+			}
+			if (price < 0) {
+				price = 0;
 			}
 			transactionPrice.text = price.ToString ();
 			unitPrice.text = price.ToString ();

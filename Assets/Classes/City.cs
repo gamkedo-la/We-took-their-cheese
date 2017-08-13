@@ -9,5 +9,6 @@ public class City {
 	//current location //should location be saved?!
 	//demand
 	public int money = 0;
+	public int maxMoney = 0;
 	public List<Item> items;
 }

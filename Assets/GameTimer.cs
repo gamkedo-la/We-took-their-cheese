@@ -45,7 +45,7 @@ public class GameTimer : MonoBehaviour {
                         quantityChange = UnityEngine.Random.Range(0, nextItem.prouction);
                     }
                     else {
-                        if (UnityEngine.Random.Range(1, 25) == 1) {
+						if (nextItem.maxAmount > 0 && UnityEngine.Random.Range(1, 25) == 1) {
                             quantityChange = 1;
                             Debug.Log("randomly producing 1 " + nextItem.name);
                         }
@@ -59,11 +59,15 @@ public class GameTimer : MonoBehaviour {
                     quantityChange = nextItem.maxAmount / 10;
                     if (quantityChange < nextItem.count)
                     {
-                        nextCity.money += quantityChange * nextItem.price / 5;
+						if (nextCity.money < nextCity.maxMoney) {
+							nextCity.money += quantityChange * nextItem.price / 5;
+						}
                         nextItem.count -= quantityChange;
                     }
                     else {
-                        nextCity.money += (quantityChange + (nextItem.count - quantityChange)) * nextItem.price;
+						if (nextCity.money < nextCity.maxMoney) {
+                        	nextCity.money += (quantityChange + (nextItem.count - quantityChange)) * nextItem.price;
+						}
                     }
                     Debug.Log(nextCity.name + " consumed " + quantityChange + " " + nextItem.name + " for a total of " + nextItem.count);
 

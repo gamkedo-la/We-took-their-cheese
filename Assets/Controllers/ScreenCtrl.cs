@@ -21,6 +21,9 @@ public class ScreenCtrl : MonoBehaviour {
 		UIRouter.goTo ("OverWorld");
 		inMainWorld.TransitionTo(2f);
 	}
+	public void goTo(string canvas){
+		UIRouter.goTo (canvas);
+	}
 
 	// Update is called once per frame
 	void Update () {
