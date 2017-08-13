@@ -186,6 +186,7 @@ public class ShopUI : MonoBehaviour {
 	}
 
 	public void buyItem(){
+		Game.Save();
 		Item cityItem = city.items.Find (x => x.name == selectedItem.name);
 		if (isBuying) {
 			int cost = (int)((cityItem.count - amount) * slope + selectedItem.price);
