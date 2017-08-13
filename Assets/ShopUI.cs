@@ -62,8 +62,12 @@ public class ShopUI : MonoBehaviour {
 
 			//Set Icon
 			icon = itemUI.Find ("Image").GetComponent<Image> ();
-			iconRef = backendItemList.Find (item.name).Find ("Icon").GetComponent<Image>();
-			icon.sprite = iconRef.sprite;
+			if(backendItemList) {
+				iconRef = backendItemList.Find(item.name).Find("Icon").GetComponent<Image>();
+				icon.sprite = iconRef.sprite;
+			} else {
+				Debug.Log("No definition provided here for backendItemList");
+			}
 
 			//set player copy
 			itemUI = Instantiate(itemUI, playerItemsList);
@@ -214,16 +218,14 @@ public class ShopUI : MonoBehaviour {
 		if (city != null && moneyUI != null) {
 			if(Input.GetKeyDown(KeyCode.C)) { //Cheese cheat
 				Item playerItem = player.items.Find (x => x.name == "Cheese");
-				if (playerItem == null) {
-					Debug.Log ("No cheese found");
+				if(playerItem == null) {
+					Debug.Log("No cheese found");
 					//player.items.Add(new 
-				} else if(playerItem.count < 998) {
-					playerItem.count = 998;
 				} else {
-					playerItem.count++;
+					playerItem.count += 240;
+					Debug.Log("Cheese cheat, cheese now:" + playerItem.count);
+					populate(player);
 				}
-				Debug.Log("Cheese cheat, cheese now:" + playerItem.count);
-				populate (player);
 			}
 
 			moneyUI.text = city.money.ToString ();

@@ -13,6 +13,9 @@ public class inventoryUI : MonoBehaviour {
 	bool fresh = true;
 	public Canvas screen;
 
+	public Text cheeseProgressLabel;
+	public RectTransform cheeseProgressBar;
+
 	// Use this for initialization
 	void init () {
 		Text textField;
@@ -54,7 +57,15 @@ public class inventoryUI : MonoBehaviour {
 			ShopItemCtrl itemCtrl = itemUI.GetComponent<ShopItemCtrl>();
 			itemCtrl.isCity = false;
 		}
+
+		Item playerCheese = player.items.Find (x => x.name == "Cheese");
+
+		cheeseProgressLabel.text = "Goal Progress: "+playerCheese.count+" of 1,000 Cheeses needed to win";
+		Vector3 barReached = Vector3.one;
+		barReached.x = (playerCheese.count / 1000.0f);
+		cheeseProgressBar.localScale = barReached;
 	}
+
 	// Update is called once per frame
 	void Update () {
 		if (fresh == false && screen.enabled == false) {
