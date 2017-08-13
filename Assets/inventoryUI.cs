@@ -13,6 +13,9 @@ public class inventoryUI : MonoBehaviour {
 	bool fresh = true;
 	public Canvas screen;
 
+	public Text cheeseProgressLabel;
+	public RectTransform cheeseProgressBar;
+
 	// Use this for initialization
 	void init () {
 		Text textField;
@@ -34,6 +37,11 @@ public class inventoryUI : MonoBehaviour {
 			//textField = itemUI.Find ("Price");
 			//textField.text = item.name;
 		}
+
+		cheeseProgressLabel.text = "words";
+		Vector3 barReached = Vector3.one;
+		barReached.x = 0.5f;
+		cheeseProgressBar.localScale = barReached;
 	}
 
 	void populate(){
