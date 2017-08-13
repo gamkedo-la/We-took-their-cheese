@@ -27,7 +27,7 @@ public class GameTimer : MonoBehaviour {
 
 			tickCount++;
 			Debug.Log("GameTimer Month #" + tickCount);
-
+			Game.Save();
 			// update each city
 			foreach (City nextCity in Game.AllCities) { 
 				//Debug.Log("GameTimer next city: " + nextCity.name);
