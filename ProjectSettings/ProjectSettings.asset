@@ -12,7 +12,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: We took their cheese
-  defaultCursor: {fileID: 2800000, guid: fe2b0f4179168694a8d1e7e9a8ebb86c, type: 3}
+  defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -227,7 +227,7 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: bb9e408229fdee9468741cc706545843,
+  resolutionDialogBanner: {fileID: 2800000, guid: dacbe6368b3369e4dac25a6233be3200,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
