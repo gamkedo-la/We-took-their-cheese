@@ -3840,7 +3840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35219d28f2482c64fb2a6dab5af7d740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsPerTick: 0.5
+  secondsPerTick: 10
   consumeRangeMin: -10
   consumeRangeMax: 10
 --- !u!4 &246434359
