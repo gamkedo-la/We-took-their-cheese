@@ -778,7 +778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1825670182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -811,7 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.822}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.928}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -864,8 +864,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444, y: -43}
-  m_SizeDelta: {x: 901.6, y: 489.3}
+  m_AnchoredPosition: {x: 0, y: -0.000015259}
+  m_SizeDelta: {x: 1180.6, y: 478.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1860533145
 MonoBehaviour:
@@ -888,7 +888,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 28
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -898,12 +898,15 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "Sergio\tEconomic Algorithms, Scale art\r\nChris Deleon\tDailog UI\r\nDionell
-    Macabugao\tIcons for Spice, Wine \r\nChrister \"McFunkypants\" Kaitila\tCity Consumptions
-    and Number Formating\r\nEzovex Dickson Goh\tIcons for Fabric, Wheat, Steel, Iron,
-    Meat\r\nDedrick Sarzaba\tAmbient Music, Desert, forest, Mountain, Lava\r\nMarc
-    Silva\tShop UI, City System, trading system\r\nNick Baker\tMap Art"
+    m_LineSpacing: 1.2
+  m_Text: "<b>Sergio</b>\tEconomic Algorithms, Scale icon, Camera pan limit\r\n<b>Chris
+    Deleon</b>\tDailog UI\r, cheese bar\n<b>Dionell Macabugao</b>\tIcons for Spice,
+    Wine \r\n<b>Christer \"McFunkypants\" Kaitila</b>\tCity Consumptions and Number
+    Formating\r\n<b>Ezovex Dickson Goh</b>\tIcons for Fabric, Wheat, Steel, Iron,
+    Meat\r, city icons\n<b>Dedrick Sarzaba</b>\tAmbient Music, Desert, forest, Mountain,
+    Lava\r\n<b>Marc Silva</b>\tBalance, Shop UI, City System, trading system\r, save/load,
+    few item icons\n<b>Nick Baker</b>\tMap Art\n<b>Michael \"Misha\" Fewkes</b> Opening
+    and ending Music\n<b>Simon J Hoffiz</b> Navigation Music"
 --- !u!222 &1860533146
 CanvasRenderer:
   m_ObjectHideFlags: 0
